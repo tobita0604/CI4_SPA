@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\UserModel;
 
 class Api extends ResourceController
 {
@@ -24,7 +25,7 @@ class Api extends ResourceController
      */
     public function login()
     {
-        // Sample login implementation
+        // Validation rules
         $rules = [
             'email' => 'required|valid_email',
             'password' => 'required|min_length[6]',
@@ -34,18 +35,43 @@ class Api extends ResourceController
             return $this->failValidationErrors($this->validator->getErrors());
         }
 
-        // This would be replaced with actual authentication logic
+        $email = $this->request->getVar('email');
+        $password = $this->request->getVar('password');
+
+        // Use the UserModel to attempt login
+        $model = new UserModel();
+        $result = $model->attemptLogin($email, $password);
+
+        if (!$result['success']) {
+            return $this->failUnauthorized($result['message']);
+        }
+
+        return $this->respond([
+            'status' => 'success',
+            'user' => $result['user'],
+            'message' => 'Login successful',
+        ]);
+    }
+
+    /**
+     * Get current user information
+     */
+    public function user()
+    {
+        // This would check the authenticated user from the request
+        // and return the user data
+        
+        // For demonstration, we're just returning static data
         $userData = [
             'id' => 1,
-            'username' => 'demo',
-            'email' => $this->request->getVar('email'),
-            'token' => md5(time()),
+            'username' => 'demo_user',
+            'email' => 'demo@example.com',
+            'roles' => ['admin'],
         ];
 
         return $this->respond([
             'status' => 'success',
             'user' => $userData,
-            'message' => 'Login successful',
         ]);
     }
 }

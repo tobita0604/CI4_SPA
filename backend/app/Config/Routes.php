@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->group('api', function ($routes) {
     $routes->get('/', 'Api::index');
     $routes->post('login', 'Api::login');
+    $routes->get('user', 'Api::user');
     // Add more API routes as needed
 });
 
