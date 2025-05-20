@@ -1,127 +1,102 @@
-# CI4_SPA
+# CI4_SPA Project
 
-A starter template for building admin dashboards with CodeIgniter 4 (backend) and Vue.js 3 (frontend).
+A modern web application using CodeIgniter 4 for the backend API and Vue.js 3 for the frontend SPA, all containerized with Docker.
 
-## Overview
+## Project Structure
 
-This project provides a template for quickly setting up a single page application (SPA) with:
-
-- **Backend**: CodeIgniter 4 with RESTful API
-- **Frontend**: Vue.js 3 with Vuetify and Tailwind CSS
-- **Authentication**: CodeIgniter Shield
-- **Development Environment**: Docker Compose
-
-## Directory Structure
-
-```
-/
-├── backend/           # CodeIgniter 4 backend
-├── frontend/          # Vue 3 + Vite frontend
-├── docker/            # Docker configuration files
-├── .env.example       # Example environment variables
-├── docker-compose.yml # Docker Compose configuration
-└── README.md          # Project documentation
-```
-
-## Prerequisites
-
-- Docker and Docker Compose
-- Git
+- `backend/` - CodeIgniter 4 application
+- `frontend/` - Vue.js 3 application
+- `docker/` - Docker configuration files
+- `docker-compose.yml` - Docker Compose configuration
 
 ## Quick Start
 
-1. Clone the repository
-   ```bash
-   git clone https://github.com/your-username/CI4_SPA.git
+1. Clone the repository:
+   ```
+   git clone https://github.com/tobita0604/CI4_SPA.git
    cd CI4_SPA
    ```
 
-2. Copy the example environment file
-   ```bash
-   cp .env.example .env
+2. Copy environment file:
+   ```
+   cp .env.example backend/.env
    ```
 
-3. Start the Docker environment
-   ```bash
+3. Start the Docker containers:
+   ```
    docker-compose up -d
    ```
 
-4. Access the application
+4. Run database migrations:
+   ```
+   docker exec -it ci4spa_backend php spark migrate
+   ```
+
+5. Run database seeder:
+   ```
+   docker exec -it ci4spa_backend php spark db:seed UserSeeder
+   ```
+
+6. Access the application:
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:8080/api
-   - phpMyAdmin: http://localhost:8081 (user: root, password: root)
+   - phpMyAdmin: http://localhost:8081 (username: root, password: root)
 
-## Backend (CodeIgniter 4)
+## Features
 
-The backend provides a RESTful API for the frontend to consume. It uses:
+### Backend (CodeIgniter 4)
+- RESTful API structure
+- User authentication with filters
+- MySQL database integration
+- CORS support for frontend-backend communication
 
-- CodeIgniter 4 (PHP 8.x)
-- MySQL database
-- CodeIgniter Shield for authentication
-- PSR-4 compliant structure
-- RESTful API endpoints
-
-### API Endpoints
-
-- `GET /api` - API information
-- `POST /api/login` - User authentication
-- Add more endpoints as needed
-
-### Development
-
-To customize the backend:
-
-1. Edit files in the `backend/app` directory
-2. Access the backend container shell for commands:
-   ```bash
-   docker exec -it ci4spa_backend bash
-   ```
-
-## Frontend (Vue.js 3)
-
-The frontend is a single page application built with:
-
-- Vue.js 3
-- Vite for development
-- Vuetify for UI components
-- Tailwind CSS for styling
+### Frontend (Vue.js 3)
+- TypeScript support
+- Vuetify as UI component library
+- Tailwind CSS for custom styling
 - Pinia for state management
-- TypeScript for type safety
-- Vue Router for routing
+- Vue Router for navigation
 - Axios for API communication
-- Storybook for component development
 
-### Development
+## Development
 
-To customize the frontend:
+### Backend Commands
+Run these commands inside the backend container:
 
-1. Edit files in the `frontend/src` directory
-2. Access the frontend container shell for commands:
-   ```bash
-   docker exec -it ci4spa_frontend sh
-   ```
+```
+# Access the container
+docker exec -it ci4spa_backend bash
 
-3. Build for production:
-   ```bash
-   docker exec -it ci4spa_frontend sh -c "cd /app && pnpm build"
-   ```
+# Run migrations
+php spark migrate
 
-## Testing
+# Create a new migration
+php spark make:migration CreateTableName
 
-### Backend Testing
+# Create a new controller
+php spark make:controller ControllerName
 
-Run PHPUnit tests:
-```bash
-docker exec -it ci4spa_backend php ./vendor/bin/phpunit
+# Create a new model
+php spark make:model ModelName
 ```
 
-### Frontend Testing
+### Frontend Commands
+Run these commands inside the frontend container:
 
-Run Jest tests:
-```bash
-docker exec -it ci4spa_frontend sh -c "cd /app && pnpm test"
+```
+# Access the container
+docker exec -it ci4spa_frontend sh
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT
