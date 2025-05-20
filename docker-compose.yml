@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Backend service (CodeIgniter 4)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - database
+    environment:
+      CI_ENVIRONMENT: development
+      DB_DEFAULT_HOSTNAME: database
+      DB_DEFAULT_DATABASE: ci4_spa
+      DB_DEFAULT_USERNAME: ci4_user
+      DB_DEFAULT_PASSWORD: ci4_password
+
+  # Frontend service (Vue 3)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8080/api
+
+  # Database service (MySQL)
+  database:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ci4_spa
+      MYSQL_USER: ci4_user
+      MYSQL_PASSWORD: ci4_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
