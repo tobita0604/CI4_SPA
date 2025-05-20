@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Backend PHP service
+  backend:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: ci4spa_backend
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    networks:
+      - ci4spa_network
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+      - PHP_IDE_CONFIG=serverName=ci4spa
+
+  # Frontend Vue.js service
+  frontend:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    container_name: ci4spa_frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "cd /app && npm run dev"
+    networks:
+      - ci4spa_network
+
+  # Database service
+  database:
+    image: mysql:8.0
+    container_name: ci4spa_database
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ci4spa
+      MYSQL_USER: ci4spa
+      MYSQL_PASSWORD: ci4spa
+    networks:
+      - ci4spa_network
+
+  # phpMyAdmin service (optional)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ci4spa_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: database
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - database
+    networks:
+      - ci4spa_network
+
+networks:
+  ci4spa_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
