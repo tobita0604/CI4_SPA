@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import axios from 'axios'
+import { useAuthStore } from './store/auth'
 
 // Vuetify
 import 'vuetify/styles'
@@ -18,8 +20,17 @@ const vuetify = createVuetify({
   directives,
 })
 
+// Set base URL for axios
+axios.defaults.baseURL = ''
+
+const pinia = createPinia()
 const app = createApp(App)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(vuetify)
+
+// Initialize auth state before mounting the app
+const authStore = useAuthStore(pinia)
+authStore.initAuth()
+
 app.mount('#app')
