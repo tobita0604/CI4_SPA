@@ -12,12 +12,13 @@
       type="error"
       variant="tonal"
       class="mb-4"
+      data-test="error-alert"
     >
       {{ itemsStore.error }}
     </v-alert>
     
     <!-- Loading state -->
-    <div v-if="itemsStore.loading" class="d-flex justify-center my-8">
+    <div v-if="itemsStore.loading" class="d-flex justify-center my-8" data-test="loading-indicator">
       <v-progress-circular
         indeterminate
         color="primary"
