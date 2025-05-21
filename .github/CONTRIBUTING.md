@@ -400,6 +400,8 @@ When using AI tools (like GitHub Copilot, ChatGPT, or Claude) for development ta
 
 - Use AI as a coding assistant, not as a replacement for understanding the codebase  
   AIはコーディング補助として使い、コードベース理解の代替にしないでください
+- In principle, responses to the AI ​​tool should be in Japanese.
+  AIツールの回答は、原則として日本語で行ってください
 - Always review and test AI-generated code before committing  
   AI生成コードは必ずレビュー・テストしてからコミットしてください
 - Do not paste sensitive information (API keys, credentials, etc.) into AI prompts  
