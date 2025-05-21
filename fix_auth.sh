@@ -1,3 +1,10 @@
+#!/bin/bash
+# Fix the auth.ts file
+file="/home/runner/work/CI4_SPA/CI4_SPA/frontend/src/store/auth.ts"
+tmp_file="/tmp/auth.ts.tmp"
+
+# Create a fixed version of the file
+cat > "$tmp_file" << 'END'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -74,3 +81,9 @@ export const useAuthStore = defineStore('auth', {
     }
   }
 })
+END
+
+# Replace the original file with the fixed version
+cp "$tmp_file" "$file"
+
+echo "Fixed auth.ts file"
