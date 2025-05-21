@@ -258,6 +258,43 @@ docker exec -it ci4spa_frontend npm run test
 - [Pinia Documentation](https://pinia.vuejs.org/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 
+## AI Implementation Guidelines
+
+When using AI tools (like GitHub Copilot, ChatGPT, or Claude) for development tasks in this project, please follow these guidelines:
+
+### General AI Usage
+
+- Use AI as a coding assistant, not as a replacement for understanding the codebase
+- Always review and test AI-generated code before committing
+- Do not paste sensitive information (API keys, credentials, etc.) into AI prompts
+
+### Prompting Best Practices
+
+- Provide context about the project structure and architecture
+- Include references to this CONTRIBUTING.md file in your prompts
+- Specify the coding standards and naming conventions to follow
+- Ask for explanations of complex logic to ensure understanding
+
+### Specific Guidelines for CI4_SPA
+
+- Direct AI to follow the established patterns in the codebase
+- For backend (CodeIgniter 4):
+  - Request code that follows PSR-12 and CodeIgniter's conventions
+  - Ask for proper use of Models, Controllers, and Services
+  - Ensure proper validation and security practices are followed
+- For frontend (Vue.js 3):
+  - Direct AI to use the Composition API with TypeScript
+  - Request proper Vuetify component implementation
+  - Ensure state management follows Pinia patterns
+
+### Code Review for AI-Generated Code
+
+- Check for inconsistencies with existing code style
+- Verify that security best practices are followed
+- Test thoroughly for edge cases
+- Remove any unnecessary code or comments
+- Ensure proper error handling is implemented
+
 ## Questions and Support
 
 If you have any questions or need support, please create an issue in the GitHub repository.
