@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    # Example of proper artifact handling
+    - name: Create logs directory
+      run: mkdir -p logs
+    
+    - name: Create test log file
+      run: echo "Test log content" > logs/test.log
+    
+    # Upload artifacts with condition to avoid warnings
+    - name: Upload logs
+      uses: actions/upload-artifact@v2
+      with:
+        name: logs
+        path: logs
+        if-no-files-found: ignore  # This prevents warnings when no files are found

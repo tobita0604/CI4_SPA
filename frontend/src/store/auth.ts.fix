@@ -43,7 +43,7 @@ export const useAuthStore = defineStore('auth', {
           // Store token in localStorage
           localStorage.setItem('user-token', response.data.user.token)
           
-          // Set axios default headers with proper token
+          // Set axios default headers
           axios.defaults.headers.common['Authorization'] = `******        } else {
           this.error = 'Login failed'
         }
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('auth', {
       const token = localStorage.getItem('user-token')
       
       if (token) {
-        // Set auth header for axios with proper token
+        // Set auth header for axios
         axios.defaults.headers.common['Authorization'] = `******        this.isAuthenticated = true
         
         // You would typically validate the token with the backend here

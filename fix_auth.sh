@@ -1,3 +1,10 @@
+#!/bin/bash
+# Fix the auth.ts file
+file="/home/runner/work/CI4_SPA/CI4_SPA/frontend/src/store/auth.ts"
+tmp_file="/tmp/auth.ts.tmp"
+
+# Create a fixed version of the file
+cat > "$tmp_file" << 'END'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -43,7 +50,7 @@ export const useAuthStore = defineStore('auth', {
           // Store token in localStorage
           localStorage.setItem('user-token', response.data.user.token)
           
-          // Set axios default headers with proper token
+          // Set axios default headers
           axios.defaults.headers.common['Authorization'] = `******        } else {
           this.error = 'Login failed'
         }
@@ -65,7 +72,7 @@ export const useAuthStore = defineStore('auth', {
       const token = localStorage.getItem('user-token')
       
       if (token) {
-        // Set auth header for axios with proper token
+        // Set auth header for axios
         axios.defaults.headers.common['Authorization'] = `******        this.isAuthenticated = true
         
         // You would typically validate the token with the backend here
@@ -74,3 +81,9 @@ export const useAuthStore = defineStore('auth', {
     }
   }
 })
+END
+
+# Replace the original file with the fixed version
+cp "$tmp_file" "$file"
+
+echo "Fixed auth.ts file"

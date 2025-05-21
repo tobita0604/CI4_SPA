@@ -33,7 +33,13 @@ $routes->group('api', function ($routes) {
     $routes->get('/', 'Api::index');
     $routes->post('login', 'Api::login');
     $routes->get('user', 'Api::user');
-    // Add more API routes as needed
+    
+    // Items routes
+    $routes->get('items', 'Items::index');
+    $routes->get('items/(:num)', 'Items::show/$1');
+    $routes->post('items', 'Items::create');
+    $routes->put('items/(:num)', 'Items::update/$1');
+    $routes->delete('items/(:num)', 'Items::delete/$1');
 });
 
 // Catch-all route for SPA (This will be handled by the frontend)

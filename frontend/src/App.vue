@@ -22,7 +22,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>CI4 SPA Admin Dashboard</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="logout">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -43,20 +43,32 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from './store/auth'
 
 export default defineComponent({
   name: 'App',
   setup() {
     const drawer = ref(true)
+    const router = useRouter()
+    const authStore = useAuthStore()
+    
     const menuItems = [
       { title: 'Dashboard', icon: 'mdi-view-dashboard', path: '/' },
       { title: 'Users', icon: 'mdi-account-group', path: '/users' },
+      { title: 'Items', icon: 'mdi-package-variant-closed', path: '/items' },
       { title: 'Settings', icon: 'mdi-cog', path: '/settings' },
     ]
+
+    const logout = () => {
+      authStore.logout()
+      router.push('/login')
+    }
 
     return {
       drawer,
       menuItems,
+      logout
     }
   },
 })
