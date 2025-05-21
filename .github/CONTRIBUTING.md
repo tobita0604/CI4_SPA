@@ -2,6 +2,34 @@
 
 Thank you for considering contributing to the CI4_SPA project. This document provides guidelines and information to help you contribute effectively.
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+  - [Architecture](#architecture)
+  - [Project Structure](#project-structure)
+- [Development Environment Setup](#development-environment-setup)
+  - [Prerequisites](#prerequisites)
+  - [Setup Instructions](#setup-instructions)
+- [Coding Standards](#coding-standards)
+  - [General Guidelines](#general-guidelines)
+  - [Backend (PHP/CodeIgniter 4)](#backend-phpcodeigniter-4)
+  - [Frontend (Vue.js 3/TypeScript)](#frontend-vuejs-3typescript)
+- [Git Workflow](#git-workflow)
+  - [Branch Naming](#branch-naming)
+  - [Commit Message Format](#commit-message-format)
+  - [Pull Request Process](#pull-request-process)
+- [Testing Guidelines](#testing-guidelines)
+  - [Backend Testing](#backend-testing)
+  - [Frontend Testing](#frontend-testing)
+- [CI/CD Process](#cicd-process)
+- [AI Implementation Guidelines](#ai-implementation-guidelines)
+  - [General AI Usage](#general-ai-usage)
+  - [Prompting Best Practices](#prompting-best-practices)
+  - [Specific Guidelines for CI4_SPA](#specific-guidelines-for-ci4_spa)
+  - [Code Review for AI-Generated Code](#code-review-for-ai-generated-code)
+- [Additional Resources](#additional-resources)
+- [Questions and Support](#questions-and-support)
+
 ## Project Overview
 
 CI4_SPA is a modern web application using CodeIgniter 4 for the backend API and Vue.js 3 for the frontend SPA, all containerized with Docker. The project follows a clear separation of concerns with dedicated backend and frontend components.
